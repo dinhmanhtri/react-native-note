@@ -4,7 +4,9 @@ import "./App.css";
 function App() {
   const [task, setTask] = useState("");
   const [listTask, setListTask] = useState<string[]>(() => {
-    const storageTasks = JSON.parse(localStorage.getItem("listTask") ?? "[]");
+    const storageTasks = JSON.parse(
+      localStorage.getItem("listTask") ?? "[]"
+    ) as string[];
     return storageTasks;
   });
 

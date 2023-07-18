@@ -79,7 +79,7 @@
 
 ### Hook
 
-> Hook nghĩa là gắn, các hàm này gắn vào component.
+> Hook nghĩa là móc, các hàm này 'móc gắn' vào component.
 
 #### 1. useState (trạng thái của dữ liệu)
 
@@ -102,6 +102,30 @@
 > 2. Initial state chỉ dùng cho lần đầu
 > 3. Set state với callback
 > 4. Initial state với callback
+
+#### 2. useEffect
+
+- `useEffect()` cho phép thực hiện các side effects trong các component, đồng bộ hóa một component với một hệ thống bên ngoài.
+  > Một số side effects: fetching data, cập nhật DOM trực tiếp, timers
+- **Cách dùng:**
+
+  ```tsx
+  import { useEffect } from "react";
+
+  useEffect(() => {
+    // setup
+  }, [dependencies]);
+  ```
+
+- **Parameters**:
+  - `setup`:
+    - Callback luôn được gọi sau khi component mounted
+    - Khi component được thêm vào DOM hàm setup sẽ được chạy.
+    - Sau mỗi lần re-render lại với các `dependencies` đã thay đổi. Trước tiên sẽ chạy cleanup function (nếu đã cung cấp) với các giá trị cũ, sau đó chạy hàm `setup` với các giá trị mới.
+  - `dependencies`: Là các biến chúng ta muốn nhờ `useEffect()` **quan sát** sự thay đổi của nó
+    - Nếu là mảng rỗng (`[]`) thì `useEffect()` sẽ chỉ chạy sau lần render đầu tiên.
+    - Nếu có giá trị (`[dp1, dp2...]`) thì `useEffect()` sẽ chạy bất cứ khi nào giá trị của một trong các **biến quan sát** (dependency) bị thay đổi.
+    - Nếu không truyền gì thì sẽ chạy lại sau mỗi lần render, re-render. => Không nên sd.
 
 ## React Native
 
