@@ -12,7 +12,7 @@ const tabs: string[] = ["posts", "comments", "albums"];
 export default function Content() {
   const [title, setTitle] = useState("");
   const [posts, setPosts] = useState<Post[]>([]);
-  const [button, setButton] = useState("");
+  const [type, setType] = useState("");
 
   /* Update DOM */
   // Callback sẽ được gọi sau khi render DOM
@@ -22,16 +22,16 @@ export default function Content() {
 
   /* Call api using useEffect */
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch(`https://jsonplaceholder.typicode.com/${type}`)
       .then((res) => res.json())
       .then((item) => {
         setPosts(item as Post[]);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [type]);
 
   const handleClick = (value: string) => {
-    setButton(value);
+    setType(value);
   };
 
   return (
@@ -51,14 +51,14 @@ export default function Content() {
         ))}
       </div>
 
-      {/* <div className="card">
+      <div className="card">
         <h2>Call api</h2>
         <ul>
           {posts.map((post) => (
-            <li>{post.title}</li>
+            <li>{post.title || post.body}</li>
           ))}
         </ul>
-      </div> */}
+      </div>
     </>
   );
 }
