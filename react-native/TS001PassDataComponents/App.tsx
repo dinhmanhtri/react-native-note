@@ -28,7 +28,13 @@ function App(): JSX.Element {
   const [count, setCount] = useState(minValue);
 
   const handleCount = (countInput: number, typeBtn: boolean) => {
-    setCount(typeBtn ? countInput + 1 : countInput - 1);
+    const newCount = typeBtn
+      ? countInput + 1
+      : countInput >= minValue
+      ? countInput - 1
+      : minValue;
+    setCount(newCount);
+    console.log(newCount);
   };
 
   return (
@@ -76,7 +82,8 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: '#DDDDDD',
-    borderRadius: 10,
+    borderRadius: 2,
+    padding: 10,
   },
 
   header: {
