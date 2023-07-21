@@ -144,6 +144,19 @@
   }, [dependencies]);
   ```
 
+- Đối chiếu với các hàm lifecycle trong class component.
+
+  ```ts
+  useEffect(() => {
+    // ComponentDidMount
+    return () => {
+        // ComponentWillUnMount
+    } 
+  }, [
+    // ComponentDidUpdate
+  ])
+  ```
+
 - **Parameters**:
   - `setup`:
     - Callback luôn được gọi sau khi component mounted
@@ -154,6 +167,20 @@
     - Nếu là mảng rỗng (`[]`) thì `useEffect()` sẽ chỉ chạy sau lần render đầu tiên.
     - Nếu có giá trị (`[dp1, dp2...]`) thì `useEffect()` sẽ chạy bất cứ khi nào giá trị của một trong các **biến quan sát** (dependency) bị thay đổi.
     - Nếu không truyền gì thì sẽ chạy lại sau mỗi lần render, re-render. => Không nên sd.
+
+#### 3. useRef
+
+- `useRef(initialValue)`: nhận giá trị khởi tạo ban đầu và trả về một tham chiếu hoặc một đối tượng tham chiếu. Tham chiếu là một object đặc biệt có một thuộc tính là current: `reference.current`.
+
+> **Lưu ý**:
+> Giá trị của reference sẽ được giữ nguyên khi component re-render.
+> Việc cập nhật reference sẽ không làm cho component re-render.
+
+- Điểm khác nhau giữa `useState()` và `useRef()`:
+  - Khi set giá trị cho state thì component sẽ bị render lại để cập nhật UI, trong khi _useRef()_ thì không.
+  - Điểm khác thứ hai là khi state update sẽ chạy bất đồng bộ, còn với _useRef()_ sẽ update ngay lập tức vì được chạy đồng bộ.
+
+- **Tip sử dụng**: sử dụng để tạo tham chiếu cho các components con, từ đó có thể gọi được hàm trong component con đó từ component cha.
 
 ## React Native
 
@@ -235,3 +262,29 @@
     bao gồm:
     - static getDerivedStateFromError()
     - componentDidCatch()
+
+#### Truyền dữ liệu giữa các component
+
+- Truyền dữ liệu từ component cha => component con: Sử dụng props.
+- Truyền dữ liệu từ component con => component cha:
+  - Cách 1: Truyền callback (callback thực hiện việc cập nhật dữ liệu) được tạo từ hàm cha vào component con, component con xử lý và gọi lại callback.
+  - Cách 2: emit một Event.
+- Truyền dữ liệu giữa các components lồng nhau:
+  - Cách 1: Truyền lần lượt thông qua các component trung gian.
+  - Cách 2: Đẩy dữ liệu vào một store dùng chung, rồi sau đó khi các component cần thì sẽ vào store để lấy (sử dụng thư viện React Redux, store này có phạm vi global, không đóng gói dành riêng cho component nào).
+- Truyền dữ liệu giữa 2 component là 2 màn hình của ứng dụng: Sử dụng thư viện React Navigation.
+
+#### Style và layout
+
+- Có 2 cách viết style: Inline và đối tượng StyleSheet.
+- Cách viết style kết hợp cả 2 cách: `styles.description, {fontStyle: 'italic', fontWeight: 'bold'}`
+- Có 5 thuộc tính Flexbox sử dụng thường xuyên nhất:
+  - flex
+  - flexDirection
+  - justifyContent: Sử dụng căn chỉnh các view con dựa trên trục dọc của view cha
+    - **flex-start (mặc định)**: Các view con sẽ được sắp xếp từ gốc tọa độ của view cha (trái => phải).
+    - **flex-end**: Ngược lại với flex-start.
+    - **center**: Dồn hết view con vào giữa.
+    - **space-between**: Căn khoảng cách đều giữa các view.
+    - **space-around**: Giống space between nhưng cách đều cả 2 đầu.
+  - alignItems

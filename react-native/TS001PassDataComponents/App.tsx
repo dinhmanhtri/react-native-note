@@ -1,109 +1,157 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useState} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  TextInput,
+  Alert,
 } from 'react-native';
 
-function DisplayCount({counter}: {counter: number}): JSX.Element {
-  console.log(counter);
-  return (
-    <View>
-      <Text style={styles.displayCount}>Bộ đếm {counter}</Text>
-    </View>
-  );
-}
-
-function App(): JSX.Element {
-  const minValue: number = 0;
-  const [count, setCount] = useState(minValue);
-
-  const handleCount = (countInput: number, typeBtn: boolean) => {
-    const newCount = typeBtn
-      ? countInput + 1
-      : countInput >= minValue
-      ? countInput - 1
-      : minValue;
-    setCount(newCount);
-    console.log(newCount);
+// App.js
+const ChildComponent = ({
+  counter,
+  parentCallback,
+}: {
+  counter: number;
+  parentCallback: (childData: string) => void;
+}) => {
+  const [text, setText] = useState('');
+  const send = () => {
+    parentCallback(text);
+    setText('');
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.header}>
-        <Text style={styles.textHeader}>Truyền dữ liệu giữa các component</Text>
+    <View style={styles.childComponent}>
+      <Text style={{color: '#000000', fontWeight: 'bold', fontSize: 40}}>
+        Bộ đếm {counter}
+      </Text>
+      <TextInput
+        value={text}
+        placeholder="Gửi gì cho cha đi!"
+        onChangeText={setText}
+        style={styles.input}
+      />
+      <TouchableOpacity
+        onPress={send}
+        style={{...styles.btn, backgroundColor: '#be29ec'}}>
+        <Text style={styles.btnText}> Send </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [childrendContent, setChildrendContent] = useState(`Món quà từ con`);
+
+  const callbackFunction = (childData: string) => {
+    setChildrendContent(childData);
+  };
+
+  const handleCount = (countInput: number, typeCount: boolean) => {
+    setCount(typeCount ? countInput + 1 : countInput >= 1 ? countInput - 1 : 0);
+  };
+
+  return (
+    <View style={{flex: 1}}>
+      <View style={{alignItems: 'center', backgroundColor: '#0d324d'}}>
+        <Text style={styles.textHeader}>
+          Truyền dữ liệu giữa các components
+        </Text>
+        <Text style={{color: '#FFFFFF'}}>Manh Tri</Text>
       </View>
       <View style={styles.body}>
-        <View style={styles.buttonInline}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleCount(count, true);
+        <View style={{flex: 1}}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 25,
+              color: '#000000',
             }}>
-            <Text>Tăng lên 1 đơn vị</Text>
+            Quà từ con:
+          </Text>
+          <Text
+            style={{textAlign: 'center', fontSize: 20, fontStyle: 'italic'}}>
+            {childrendContent}
+          </Text>
+        </View>
+        <View style={styles.btnContainer}>
+          <TouchableOpacity
+            onPress={() => handleCount(count, true)}
+            style={{...styles.btn, backgroundColor: '#3d85c6'}}>
+            <Text style={styles.btnText}> Tăng lên 1 đơn vị</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleCount(count, false);
-            }}>
-            <Text>Giảm 1 đơn vị</Text>
+            onPress={() => handleCount(count, false)}
+            style={{...styles.btn, backgroundColor: '#3d85c6'}}>
+            <Text style={styles.btnText}> Giảm đi 1 đơn vị</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <DisplayCount counter={count} />
+        <ChildComponent counter={count} parentCallback={callbackFunction} />
+        <View style={{flex: 1}}>
+          <TouchableOpacity
+            onPress={() => Alert.alert('Bạn đã chạm vào tôi đấy à!')}>
+            <View style={styles.btn}>
+              <Text style={styles.btnText}>💪 Custom Button</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 15,
-    justifyContent: 'center',
-  },
-
-  buttonInline: {
-    flexDirection: 'row',
-    marginLeft: 20,
-    justifyContent: 'space-evenly',
-    padding: 10,
-  },
-
-  button: {
-    backgroundColor: '#DDDDDD',
-    borderRadius: 2,
-    padding: 10,
-  },
-
-  header: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#cc3333',
-  },
-
   textHeader: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-
-  displayCount: {
-    padding: 10,
-    color: '#000000',
+  body: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+    borderColor: '#0d324d',
+    borderWidth: 5,
+  },
+  btn: {
+    backgroundColor: '#086972',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 10,
+    borderRadius: 10,
+  },
+  btnText: {
+    fontSize: 18,
+    color: '#fff',
+  },
+  text: {
+    textAlign: 'center',
     fontSize: 40,
     fontWeight: 'bold',
-    textAlign: 'center',
+    color: 'green',
+  },
+  childComponent: {
+    flex: 1,
+    borderColor: '#ffe4e1',
+    borderWidth: 2,
+    width: '100%',
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffe4e1',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#be29ec',
+    borderRadius: 8,
+    width: '50%',
+  },
+  btnContainer: {
+    flex: 1,
   },
 });
 
