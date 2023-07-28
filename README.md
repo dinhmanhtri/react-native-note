@@ -168,7 +168,11 @@
     - Nếu có giá trị (`[dp1, dp2...]`) thì `useEffect()` sẽ chạy bất cứ khi nào giá trị của một trong các **biến quan sát** (dependency) bị thay đổi.
     - Nếu không truyền gì thì sẽ chạy lại sau mỗi lần render, re-render. => Không nên sd.
 
-#### 3. useRef
+#### 3. useLayoutEffect
+
+- 
+
+#### 4. useRef
 
 - `useRef(initialValue)`: nhận giá trị khởi tạo ban đầu và trả về một tham chiếu hoặc một đối tượng tham chiếu. Tham chiếu là một object đặc biệt có một thuộc tính là current: `reference.current`.
 

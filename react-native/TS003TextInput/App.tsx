@@ -19,43 +19,50 @@ import {
 const hotGirls = [
   {
     id: 1,
-    thumbnail: 'https://i.pravatar.cc/150?img=28',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Thủy Phương Diễm',
     status: 'Online',
   },
   {
     id: 2,
-    thumbnail: 'https://i.pravatar.cc/150?img=44',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Ngô Trâm Anh',
     status: 'Online',
   },
   {
     id: 4,
-    thumbnail: 'https://i.pravatar.cc/150?img=1',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Triệu Thu Oanh',
     status: 'Online',
   },
   {
     id: 5,
-    thumbnail: 'https://i.pravatar.cc/150?img=29',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Phạm Nhã Hồng',
     status: 'Offline',
   },
   {
     id: 8,
-    thumbnail: 'https://i.pravatar.cc/150?img=5',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Lục Quỳnh Trâm',
     status: 'Online',
   },
   {
     id: 9,
-    thumbnail: 'https://i.pravatar.cc/150?img=9',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Nguyễn Kim Anh',
     status: 'Online',
   },
   {
     id: 10,
-    thumbnail: 'https://i.pravatar.cc/150?img=19',
+    thumbnail:
+      'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_icon_149329.png',
     name: 'Nguyễn Uyển Khanh',
     status: 'Offline',
   },
@@ -114,11 +121,7 @@ function App(): JSX.Element {
           />
         </View>
 
-        <View
-          style={{
-            flex: 2,
-            flexDirection: 'column',
-          }}>
+        <View style={{flex: 2, flexDirection: 'column'}}>
           <View style={{alignItems: 'center', backgroundColor: '#cc3333'}}>
             <Text style={styles.textHeader}>Demo Danh sách bằng FlatList</Text>
             <Text style={{color: '#FFFFFF'}}>Manh Tri</Text>
